@@ -16,6 +16,10 @@ function validateInput(input) {
     return (input) !== ""
 }
 
+function validateCarInput (year, make, model) {
+    return (year && make && model) !== ""
+}
+
 function validateAll () {
 
 query("#parking-form").addEventListener("submit", function (event) {
@@ -23,7 +27,7 @@ query("#parking-form").addEventListener("submit", function (event) {
 
 // name validation
 let nameField = query("#name-field")
-let nameInput = query("#name").value
+let nameInput = query("#name").value.trim()
 let nameValid = validateInput(nameInput)
 
 if (nameValid) {
@@ -34,7 +38,7 @@ if (nameValid) {
 
 // parking date field
 let startDateField = query("#start-date-field")
-let startDateInput = query("#start-date").value
+let startDateInput = query("#start-date").value.trim()
 let startDateValid = validateInput(startDateInput)
 
 if (startDateValid) {
@@ -45,7 +49,7 @@ if (startDateValid) {
 
 // number of days validation
 let daysField = query("#days-field")
-let daysInput = query("#days").value
+let daysInput = query("#days").value.trim()
 let daysValid = validateInput(daysInput)
 
 if (daysValid) {
@@ -56,7 +60,7 @@ if (daysValid) {
 
 // credit card validation
 let creditCardField = query("#credit-card-field")
-let creditCardInput = query("#credit-card").value
+let creditCardInput = query("#credit-card").value.trim()
 let creditCardValid = validateInput(creditCardInput)
 
 if (creditCardValid) {
@@ -67,7 +71,7 @@ if (creditCardValid) {
 
 // cvv validation
 let cvvField = query("#cvv-field")
-let cvvInput = query("#cvv").value
+let cvvInput = query("#cvv").value.trim()
 let cvvValid = validateInput(cvvInput)
 
 if (cvvValid) {
@@ -78,7 +82,7 @@ if (cvvValid) {
 
 // expiration validation
 let expirationField = query("#expiration-field")
-let expirationInput = query("#expiration").value
+let expirationInput = query("#expiration").value.trim()
 let expirationValid = validateInput(expirationInput)
 
 if (expirationValid) {
@@ -86,6 +90,21 @@ if (expirationValid) {
 } else {
     markInvalid(expirationField)
 }
+
+// car fields validation
+let carField = query("#car-field")
+let carYearInput = query("#car-year").value.trim()
+let carMakeInput = query("#car-make").value.trim()
+let carModelInput = query("#car-model").value.trim()
+let carValid = validateCarInput(carYearInput, carMakeInput, carModelInput)
+
+if (carValid) {
+    markValid(carField)
+} else {
+    markInvalid(carField)
+}
+
+
 })
 }
 
