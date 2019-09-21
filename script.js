@@ -36,7 +36,7 @@ function validateCarInput(year, make, model) {
     return (year && make && model) !== ""
 }
 
-function retrieveDate (rawDate) {
+function retrieveDate(rawDate) {
     if (rawDate === "") {
         return null
     } else {
@@ -44,7 +44,7 @@ function retrieveDate (rawDate) {
     }
 }
 
-function verifyFutureDate (convertedDate) {
+function verifyFutureDate(convertedDate) {
     let now = new Date()
     now.setUTCHours(0, 0, 0, 0)
     return convertedDate >= now
@@ -74,7 +74,7 @@ function validateAll() {
         let startDateValid = validateInput(startDateInput)
 
         let convertedDate = retrieveDate(startDateInput)
-        
+
         let validFutureDate = verifyFutureDate(convertedDate)
 
         if (!startDateValid) {
@@ -157,16 +157,47 @@ function validateAll() {
         } else {
             markValid(carField)
         }
+
+        let parkingDates = []
+
+        let dayUp = new Date (startDateInput)
+
+        dayUp.setDate(1)
+        parkingDates.push(dayUp)
+        dayUp.setDate(5)
+        parkingDates.push(dayUp)
+        dayUp.setDate(20)
+        parkingDates.push(dayUp)
+
+        console.log (parkingDates)
+
+        // function dailyIncrease(startDateInput, daysInput) {
+        //     for (let day = 0; day < daysInput; day++) {
+
+        //         parkingDates.push(startDateInput.setDate(day))
+
+        //         console.log(parkingDates)
+        //     }
+        // }
+
+        // dailyIncrease(startDateInput, daysInput)
+
     })
 }
 
 validateAll()
 
 
-
-
 // get each day between now and the end of the number of days field into an array
 
+
+// let parkingDates = []
+
+// parkingDates.push(convertedDate)
+
+// console.log(parkingDates)
+
+// calculateTotal(startDateInput, daysInput)
 
 // create a new div that will display the total
 
