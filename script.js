@@ -157,10 +157,24 @@ function validateAll() {
         } else {
             markValid(carField)
         }
-
-
-
     })
 }
 
 validateAll()
+
+
+
+
+// get each day between now and the end of the number of days field into an array
+
+
+// create a new div that will display the total
+
+// multiply total number of days by 5 and add that to the total
+
+// loop over the array to see how many days start with the letter "S"
+
+// multiply the total number of "S" days by 2 and add that to the total
+
+// appendChild to get that total on the screen with a dollar sign
+
