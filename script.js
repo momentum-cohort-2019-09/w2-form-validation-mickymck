@@ -6,7 +6,7 @@ function querys(selector) {
     return document.querySelectorAll(selector)
 }
 
-function removeErrorMsg () {
+function removeErrorMsg() {
     let existingError = querys(".input-hint")
     for (let instance of existingError) {
         instance.remove("error-message")
@@ -22,8 +22,6 @@ function markInvalid(field, errorMsg) {
     field.classList.remove("input-valid")
     field.classList.add("input-invalid")
 
-
-
     const errorField = document.createElement("p")
     errorField.classList.add("input-hint", "text-danger", "error-message")
     errorField.innerText = errorMsg
@@ -36,6 +34,20 @@ function validateInput(input) {
 
 function validateCarInput(year, make, model) {
     return (year && make && model) !== ""
+}
+
+function retrieveDate (rawDate) {
+    if (rawDate === "") {
+        return null
+    } else {
+        return new Date(rawDate)
+    }
+}
+
+function verifyFutureDate (convertedDate) {
+    let now = new Date()
+    now.setUTCHours(0, 0, 0, 0)
+    return convertedDate >= now
 }
 
 function validateAll() {
@@ -61,10 +73,16 @@ function validateAll() {
         let startDateInput = query("#start-date").value.trim()
         let startDateValid = validateInput(startDateInput)
 
-        if (startDateValid) {
-            markValid(startDateField)
+        let convertedDate = retrieveDate(startDateInput)
+        
+        let validFutureDate = verifyFutureDate(convertedDate)
+
+        if (!startDateValid) {
+            markInvalid(startDateField, "Start date is required.")
+        } else if (!validFutureDate) {
+            markInvalid(startDateField, "Start date must be in the future.")
         } else {
-            markInvalid(startDateField, "Start date is required")
+            markValid(startDateField)
         }
 
         // number of days validation
@@ -72,10 +90,16 @@ function validateAll() {
         let daysInput = query("#days").value.trim()
         let daysValid = validateInput(daysInput)
 
-        if (daysValid) {
+        if (isNaN(daysInput) && daysInput !== "") {
+            markInvalid(daysField, "Please enter a valid number.")
+        } else if (daysInput < 1 && daysInput !== "") {
+            markInvalid(daysField, "Must park for at least 1 day.")
+        } else if (daysInput > 30 && daysInput !== "") {
+            markInvalid(daysField, "You can't park here for more than 30 days.")
+        } else if (daysValid) {
             markValid(daysField)
         } else {
-            markInvalid(daysField, "Number of days is required")
+            markInvalid(daysField, "Number of days is required.")
         }
 
         // credit card validation
@@ -86,7 +110,7 @@ function validateAll() {
         if (creditCardValid) {
             markValid(creditCardField)
         } else {
-            markInvalid(creditCardField, "Credit card number is required")
+            markInvalid(creditCardField, "Credit card number is required.")
         }
 
         // cvv validation
@@ -94,10 +118,14 @@ function validateAll() {
         let cvvInput = query("#cvv").value.trim()
         let cvvValid = validateInput(cvvInput)
 
-        if (cvvValid) {
+        if (isNaN(cvvInput) && cvvInput !== "") {
+            markInvalid(cvvField, "Enter a valid 3-digit number.")
+        } else if (cvvInput.length !== 3) {
+            markInvalid(cvvField, "Enter a valid 3-digit number.")
+        } else if (cvvValid) {
             markValid(cvvField)
         } else {
-            markInvalid(cvvField, "CVV is required")
+            markInvalid(cvvField, "CVV is required.")
         }
 
         // expiration validation
@@ -108,7 +136,7 @@ function validateAll() {
         if (expirationValid) {
             markValid(expirationField)
         } else {
-            markInvalid(expirationField, "Expiration date is required")
+            markInvalid(expirationField, "Expiration date is required.")
         }
 
         // car fields validation
@@ -118,11 +146,18 @@ function validateAll() {
         let carModelInput = query("#car-model").value.trim()
         let carValid = validateCarInput(carYearInput, carMakeInput, carModelInput)
 
-        if (carValid) {
-            markValid(carField)
+        if (isNaN(carYearInput) && carYearInput !== "") {
+            markInvalid(carField, "That's not a year.")
+        } else if (carYearInput <= 1900 && carYearInput !== "") {
+            markInvalid(carField, "Cars are not that old.")
+        } else if (carYearInput > 2019 && carYearInput !== "") {
+            markInvalid(carField, "You can't park a car from the future.")
+        } else if (!carValid) {
+            markInvalid(carField, "Car year, make, and model are all required.")
         } else {
-            markInvalid(carField, "Car year, make, and model are all required")
+            markValid(carField)
         }
+
 
 
     })
