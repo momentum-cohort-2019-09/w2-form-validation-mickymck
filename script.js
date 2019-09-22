@@ -167,30 +167,40 @@ function validateAll() {
 
                 let parkingArrays = []
 
-                parkingArrays.push(new Date(convertedDate)); convertedDate.setDate(convertedDate.getDate() + 1);
+                parkingArrays.push(new Date(convertedDate));
+
+                convertedDate.setDate(convertedDate.getDate() + 1);
 
                 let parkingDates = (parkingArrays[0])
-                
+
                 let daysOfTheWeek = []
-                
-                daysOfTheWeek.push (parkingDates.getDay())
 
-                let dayRate = 0
+                daysOfTheWeek.push(parkingDates.getDay())
 
-                for (let day of daysOfTheWeek) {
-                    if(day === 0 || day === 6) {
-                        dayRate += 7
+                let rawDaysOfTheWeek = []
+
+                rawDaysOfTheWeek.push((daysOfTheWeek[0]))
+
+                let dayRate = []
+
+                for (let day of rawDaysOfTheWeek) {
+                    if (day === 0 || day === 6) {
+                        dayRate.push(rawDaysOfTheWeek = 7)
                     }
                     else {
-                        dayRate +=5
+                        dayRate.push(rawDaysOfTheWeek = 5)
                     }
                 }
 
-                let rateArray = []
+                console.log(dayRate)
 
-                rateArray.push(dayRate)
+                // console.log(dayRate)
 
-                console.log(rateArray)
+                // dayRateSum = function (dayRate) {
+                //     return dayRate.reduce(function (a,b) {
+                //         return a+b
+                //     }, 0);
+                // }
             }
         }
 
