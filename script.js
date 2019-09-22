@@ -165,45 +165,61 @@ function validateAll() {
 
             for (let day = 0; day < daysInput; day++) {
 
-                let parkingDates = []
+                let parkingArrays = []
 
-                parkingDates.push(new Date(convertedDate)); convertedDate.setDate(convertedDate.getDate() + 1);
+                parkingArrays.push(new Date(convertedDate)); convertedDate.setDate(convertedDate.getDate() + 1);
 
-                for (let date of parkingDates) {
+                let parkingDates = (parkingArrays[0])
+                
+                let daysOfTheWeek = []
+                
+                daysOfTheWeek.push (parkingDates.getDay())
 
-                    let weekendDates = []
+                let dayRate = 0
 
-                    weekendDates.push(parkingDates.includes("Sat" || "Sun"))
+                for (let day of daysOfTheWeek) {
+                    if(day === 0 || day === 6) {
+                        dayRate += 7
+                    }
+                    else {
+                        dayRate +=5
+                    }
                 }
-                console.log(weekendDates)
+
+                let rateArray = []
+
+                rateArray.push(dayRate)
+
+                console.log(rateArray)
             }
+        }
 
-            isWeekend(startDateInput, daysInput)
+        isWeekend(startDateInput, daysInput)
 
 
-            // function validateCardNum(number) {
-            //     let regex = new RegExp("^[0-9]{16}$");
-            //     if (!regex.test(number))
-            //         return false
+        // function validateCardNum(number) {
+        //     let regex = new RegExp("^[0-9]{16}$");
+        //     if (!regex.test(number))
+        //         return false
 
-            // return luhnCheck(number);
-            // }
-            // function luhnCheck(val) {
-            //     let sum = 0
-            //     for (let i = 0; i < val.length; i++) {
-            //         let intVal = parseInt(val.substr(i,1));
-            //         if (i % 2 === 0) {
-            //             intVal *=2;
-            //             if (intVal>9) {
-            //                 intVal = 1 + (intVal % 10);
-            //             }
-            //         } 
-            //         sum += intVal;
-            //     }
-            //     return (sum % 10) === 0;
-            // }
-            // validateCardNum(creditCardInput)
-        })
+        // return luhnCheck(number);
+        // }
+        // function luhnCheck(val) {
+        //     let sum = 0
+        //     for (let i = 0; i < val.length; i++) {
+        //         let intVal = parseInt(val.substr(i,1));
+        //         if (i % 2 === 0) {
+        //             intVal *=2;
+        //             if (intVal>9) {
+        //                 intVal = 1 + (intVal % 10);
+        //             }
+        //         } 
+        //         sum += intVal;
+        //     }
+        //     return (sum % 10) === 0;
+        // }
+        // validateCardNum(creditCardInput)
+    })
 }
 
 validateAll()
