@@ -32,6 +32,7 @@ function validateInput(input) {
     return (input) !== ""
 }
 
+
 function validateCarInput(year, make, model) {
     return (year && make && model) !== ""
 }
@@ -133,6 +134,8 @@ function validateAll() {
         let expirationInput = query("#expiration").value.trim()
         let expirationValid = validateInput(expirationInput)
 
+
+
         if (expirationValid) {
             markValid(expirationField)
         } else {
@@ -158,31 +161,49 @@ function validateAll() {
             markValid(carField)
         }
 
-        let parkingDates = []
+        function isWeekend(startDateInput, daysInput) {
 
-        let dayUp = new Date (startDateInput)
+            for (let day = 0; day < daysInput; day++) {
 
-        dayUp.setDate(1)
-        parkingDates.push(dayUp)
-        dayUp.setDate(5)
-        parkingDates.push(dayUp)
-        dayUp.setDate(20)
-        parkingDates.push(dayUp)
+                let parkingDates = []
 
-        console.log (parkingDates)
+                parkingDates.push(new Date(convertedDate)); convertedDate.setDate(convertedDate.getDate() + 1);
 
-        // function dailyIncrease(startDateInput, daysInput) {
-        //     for (let day = 0; day < daysInput; day++) {
+                for (let date of parkingDates) {
 
-        //         parkingDates.push(startDateInput.setDate(day))
+                    let weekendDates = []
 
-        //         console.log(parkingDates)
-        //     }
-        // }
+                    weekendDates.push(parkingDates.includes("Sat" || "Sun"))
+                }
+                console.log(weekendDates)
+            }
 
-        // dailyIncrease(startDateInput, daysInput)
+            isWeekend(startDateInput, daysInput)
 
-    })
+
+            // function validateCardNum(number) {
+            //     let regex = new RegExp("^[0-9]{16}$");
+            //     if (!regex.test(number))
+            //         return false
+
+            // return luhnCheck(number);
+            // }
+            // function luhnCheck(val) {
+            //     let sum = 0
+            //     for (let i = 0; i < val.length; i++) {
+            //         let intVal = parseInt(val.substr(i,1));
+            //         if (i % 2 === 0) {
+            //             intVal *=2;
+            //             if (intVal>9) {
+            //                 intVal = 1 + (intVal % 10);
+            //             }
+            //         } 
+            //         sum += intVal;
+            //     }
+            //     return (sum % 10) === 0;
+            // }
+            // validateCardNum(creditCardInput)
+        })
 }
 
 validateAll()
