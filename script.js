@@ -161,40 +161,43 @@ function validateAll() {
             markValid(carField)
         }
 
-        function isWeekend(startDateInput, daysInput) {
+        function isWeekend(convertedDate, daysInput) {
 
             for (let day = 0; day < daysInput; day++) {
 
                 let parkingArrays = []
 
-                parkingArrays.push(new Date(convertedDate));
+                parkingArrays.push(convertedDate)
 
-                convertedDate.setDate(convertedDate.getDate() + 1);
+                convertedDate.setDate(convertedDate.getDate() + 1)
 
                 let parkingDates = (parkingArrays[0])
 
-                let daysOfTheWeek = []
+                let daysOfTheWeek = parkingDates.getDay()
 
-                daysOfTheWeek.push(parkingDates.getDay())
+                let dailyRate = []
 
-                let rawDaysOfTheWeek = []
+                function rateArray(daysOfTheWeek) {
+                    for (let i = 0; i < parkingArrays.length; i++) {
 
-                rawDaysOfTheWeek.push((daysOfTheWeek[0]))
-
-                let dayRate = []
-
-                for (let day of rawDaysOfTheWeek) {
-                    if (day === 0 || day === 6) {
-                        dayRate.push(rawDaysOfTheWeek = 7)
-                    }
-                    else {
-                        dayRate.push(rawDaysOfTheWeek = 5)
+                        dailyRate.push(daysOfTheWeek)
+                        return dailyRate[0]
                     }
                 }
 
-                console.log(dayRate)
+                let dailyNumbers = rateArray(daysOfTheWeek)
 
-                // console.log(dayRate)
+                console.log(dailyNumbers)
+
+                // for (let number of dailyNumbers) {
+                //     if (rate === 0 || rate === 6) {
+                //         dayRate.push(rawDaysOfTheWeek = 7)
+                //     }
+                //     else {
+                //         dayRate.push(rawDaysOfTheWeek = 5)
+                //     }
+                // }
+                
 
                 // dayRateSum = function (dayRate) {
                 //     return dayRate.reduce(function (a,b) {
@@ -204,7 +207,7 @@ function validateAll() {
             }
         }
 
-        isWeekend(startDateInput, daysInput)
+        isWeekend(convertedDate, daysInput)
 
 
         // function validateCardNum(number) {
