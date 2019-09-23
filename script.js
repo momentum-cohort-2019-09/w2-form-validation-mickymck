@@ -32,6 +32,13 @@ function validateInput(input) {
     return (input) !== ""
 }
 
+function creditCardLength (input) {
+    if (input.length === 16) {
+        return input
+    } else {
+        return null
+    }
+}
 
 function validateCarInput(year, make, model) {
     return (year && make && model) !== ""
@@ -107,11 +114,12 @@ function validateAll() {
         let creditCardField = query("#credit-card-field")
         let creditCardInput = query("#credit-card").value.trim()
         let creditCardValid = validateInput(creditCardInput)
+        let validCreditCardLength = creditCardLength(creditCardInput)
 
-        if (creditCardValid) {
+        if (creditCardValid && validCreditCardLength) {
             markValid(creditCardField)
         } else {
-            markInvalid(creditCardField, "Credit card number is required.")
+            markInvalid(creditCardField, "16-digit credit card number is required.")
         }
 
         // cvv validation
@@ -209,29 +217,30 @@ function validateAll() {
 
         isWeekend(convertedDate, daysInput)
 
+        function validateCardNumber(number) {
+            var regex = new RegExp("^[0-9]{16}$");
+            if (!regex.test(number))
+                return false;
+        
+            return luhnCheck(number);
+        }
+        
+        function luhnCheck(val) {
+            var sum = 0;
+            for (var i = 0; i < val.length; i++) {
+                var intVal = parseInt(val.substr(i, 1));
+                if (i % 2 == 0) {
+                    intVal *= 2;
+                    if (intVal > 9) {
+                        intVal = 1 + (intVal % 10);
+                    }
+                }
+                sum += intVal;
+            }
+            return (sum % 10) == 0;
+        }
 
-        // function validateCardNum(number) {
-        //     let regex = new RegExp("^[0-9]{16}$");
-        //     if (!regex.test(number))
-        //         return false
-
-        // return luhnCheck(number);
-        // }
-        // function luhnCheck(val) {
-        //     let sum = 0
-        //     for (let i = 0; i < val.length; i++) {
-        //         let intVal = parseInt(val.substr(i,1));
-        //         if (i % 2 === 0) {
-        //             intVal *=2;
-        //             if (intVal>9) {
-        //                 intVal = 1 + (intVal % 10);
-        //             }
-        //         } 
-        //         sum += intVal;
-        //     }
-        //     return (sum % 10) === 0;
-        // }
-        // validateCardNum(creditCardInput)
+        console.log(validateCardNumber(creditCardInput))
     })
 }
 
